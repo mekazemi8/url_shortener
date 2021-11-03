@@ -43,6 +43,10 @@
   box-sizing: border-box;
 }
 
+* {
+  font-family: IRANSans;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
