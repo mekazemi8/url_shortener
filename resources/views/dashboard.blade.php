@@ -91,7 +91,7 @@
 
                                     <!-- Modal body -->
                                     <div class="modal-body bg-light">
-                                        <a href="https://pzly.ir/{{$url->short_url}}">pzly.ir/{{$url->short_url}}</a>
+                                        <a href="{{URL::to('/')}}/{{$url->short_url}}">pzly.ir/{{$url->short_url}}</a>
                                         <br><br>
                                         <h6 class="text-center text-primary">لینک اصلی</h6>
                                         <a style="overflow-wrap: break-word;" href="{{$url->long_url}}">{{$url->long_url}}</a>
@@ -106,8 +106,7 @@
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
                                         <div class="btn-group" style="margin: 0 auto">
-                                            <button type="button" class="btn btn-primary">ویرایش</button>
-                                            <button type="button" class="btn btn-danger">حذف</button>
+                                            <a href="{{URL::to('/')}}/delete/{{$url->id}}" class="btn btn-danger">حذف</a>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>

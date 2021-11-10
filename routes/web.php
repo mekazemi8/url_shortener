@@ -26,5 +26,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/make_url', [UrlController::class, 'store'])->name('make-url');
 Route::get('/{short_url}', [UrlController::class, 'goto'])->name('goto');
 Route::post('/show_views', [UrlController::class, 'show_views_count'])->name('show-views-count');
+Route::get('/delete/{id}', [UrlController::class, 'destroy'])->middleware('auth');
 
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
