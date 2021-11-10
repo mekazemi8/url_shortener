@@ -78,4 +78,13 @@ class UrlController extends Controller
         Cookie::queue('long_url', $url_view_count->long_url, 0.2);
         return back();
     }
+
+    public function destroy($id)
+    {
+        $url = Url::find($id);
+        if ($url->user_id == Auth::id()){
+            $url->delete();
+        }
+        return back()->with('success', 'لینک کوتاه با موفقیت حذف شد');
+    }
 }
