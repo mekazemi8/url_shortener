@@ -3,6 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center" style="direction: rtl">
+
+        @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
+
         <div class="col-md-7">
             <div class="card">
                 <div class="card-header text-center">
@@ -10,19 +17,35 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="/action_page.php">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{route('make-url')}}" method="post">
+                        @csrf
                         <div class="form-group">
                             <label for="short_link" class="float-right">لینک کوتاه</label>
                             <div class="input-group mb-3" style="direction: ltr">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">pzly.ir/</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="لینک کوتاه" name="short_link">
+                                <input type="text" class="form-control" placeholder="لینک کوتاه" name="short_url">
                             </div>
+                            @error('short_url')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="main_link" class="float-right">لینک اصلی</label>
-                            <input type="text" class="form-control" placeholder="لینک کوتاه نشده را وارد کنید" id="main_link" name="main_link" style="direction:ltr">
+                            <input type="text" class="form-control" placeholder="لینک کوتاه نشده را وارد کنید" id="main_link" name="long_url" style="direction:ltr">
+                            @error('long_url')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-success btn-block">Submit</button>
                     </form>
@@ -30,8 +53,8 @@
             </div>
         </div>
 
-        <div class="col-md-8" style="direction: ltr;">
-            <h2 class="text-center">لیست لینک های شما</h2>
+        <div class="col-md-8 mt-3" style="direction: ltr;">
+            <h3 class="text-center text-info">لیست لینک های شما</h3>
 
             <table class="table table-dark table-striped table-hover">
                 <thead>
@@ -47,7 +70,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                 pzly.ir/iranpuzzley
                             </button>
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
 
@@ -86,7 +109,7 @@
                         </td>
                         <td class="text-center">123</td>
                         <td class="text-center">23 خرداد 1400</td>
-                    </tr>                
+                    </tr>
                 </tbody>
             </table>
         </div>
