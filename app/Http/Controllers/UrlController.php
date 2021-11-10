@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,5 +44,14 @@ class UrlController extends Controller
         ]);
 
         return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
+    }
+
+    public function goto($short_url)
+    {
+        $url = Url::where('short_url', $short_url)->first();
+        $url->update([
+            'views' => $url->views + 1,
+        ]);
+        return redirect($url->long_url);
     }
 }

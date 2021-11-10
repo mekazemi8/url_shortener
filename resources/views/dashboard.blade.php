@@ -5,7 +5,7 @@
     <div class="row justify-content-center" style="direction: rtl">
 
         @if(session()->has('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible col-md-8">
                 {{ session()->get('success') }}
             </div>
         @endif
@@ -17,15 +17,15 @@
                 </div>
 
                 <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+{{--                    @if ($errors->any())--}}
+{{--                        <div class="alert alert-danger">--}}
+{{--                            <ul>--}}
+{{--                                @foreach ($errors->all() as $error)--}}
+{{--                                    <li>{{ $error }}</li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                     <form action="{{route('make-url')}}" method="post">
                         @csrf
                         <div class="form-group">
@@ -65,12 +65,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    @foreach($urls as $url)
+                        <tr>
                         <td class="text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                pzly.ir/iranpuzzley
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$url->id}}">
+                                pzly.ir/{{$url->short_url}}
                             </button>
-                            <div class="modal fade" id="myModal">
+                            <div class="modal fade" id="myModal{{$url->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
 
@@ -82,14 +83,14 @@
 
                                     <!-- Modal body -->
                                     <div class="modal-body bg-light">
-                                        <a href="pzly.ir/iranpuzzley">pzly.ir/iranpuzzley</a>
+                                        <a href="https://pzly.ir/{{$url->short_url}}">pzly.ir/{{$url->short_url}}</a>
                                         <br><br>
-                                        <h4 class="text-center text-primary">لینک اصلی</h4>
-                                        <a style="overflow-wrap: break-word;" href="puzzley.ir/sdf/dsfsdfsdfjad/f/sdf/sdfSdf.sdf.sdf.sdf.sd.fsdflads;f">puzzley.ir/sdf/dsfsdfsdfjad/f/sdf/sdfSdf.sdf.sdf.sdf.sd.sdfSdf.sdf.sdf.sdf.sd.sdfSdf.sdf.sdf.sdf.sd.sdfSdf.sdf.sdf.sdf.sd.fsdflads;f</a>
+                                        <h6 class="text-center text-primary">لینک اصلی</h6>
+                                        <a style="overflow-wrap: break-word;" href="{{$url->long_url}}">{{$url->long_url}}</a>
 
                                         <div class="card mt-4" style="max-width: 200px; margin: 0 auto;">
                                             <div class="card-header text-dark">بازدید کل</div>
-                                            <div class="card-body text-dark">156</div>
+                                            <div class="card-body text-dark">{{$url->views}}</div>
                                         </div>
 
                                     </div>
@@ -107,9 +108,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center">123</td>
-                        <td class="text-center">23 خرداد 1400</td>
+                        <td class="text-center">{{$url->views}}</td>
+                        <td class="text-center">{{$url->created_at}}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

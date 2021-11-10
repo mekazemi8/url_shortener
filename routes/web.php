@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UrlController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +22,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/make_url', [\App\Http\Controllers\UrlController::class, 'store'])->name('make-url');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/make_url', [UrlController::class, 'store'])->name('make-url');
+Route::get('/{short_url}', [UrlController::class, 'goto'])->name('goto');
+
+Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
