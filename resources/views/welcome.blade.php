@@ -48,8 +48,42 @@
                         </form>
                     </div>
                 </div>
-            </div>
 
+                <h4 class="text-center mt-3 text-info">مشاهده تعداد بازدید لینک کوتاه شما</h4>
+                <div class="card">
+                    <div class="card-header text-center">
+                        نمایش تعداد بازدید
+                    </div>
+
+                    <div class="card-body">
+                        <form action="{{route('show-views-count')}}" method="post">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="short_link" class="float-right">لینک کوتاه را وارد کنید</label>
+                                <div class="input-group mb-3" style="direction: ltr">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">pzly.ir/</span>
+                                    </div>
+                                    <input type="text" class="form-control" maxlength="10" placeholder="لینک کوتاه سه حرفی را وارد کنید" name="short_url">
+                                </div>
+                                @error('short_url')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @if (Cookie::get('url_view_count') !== null)
+                <div class="col-md-12">
+                    <div class="text-center mt-2 text-dark">تعداد بازدید لینک شما</div>
+                    <div class="text-center text-danger shorted_url">{{Cookie::get('url_view_count')}}</div>
+                    <h5 class="text-center text-dark">لینک اصلی</h5>
+                    <a class="text-center d-block" href="{{Cookie::get('long_url')}}">{{Cookie::get('long_url')}}</a>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

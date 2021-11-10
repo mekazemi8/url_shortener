@@ -65,4 +65,17 @@ class UrlController extends Controller
         ]);
         return redirect($url->long_url);
     }
+
+    public function show_views_count(Request $request)
+    {
+        $request->validate([
+            'short_url' => 'required|min:3',
+        ]);
+
+        $url_view_count = Url::where('short_url', $request->short_url)->first();
+
+        Cookie::queue('url_view_count', $url_view_count->views, 0.2);
+        Cookie::queue('long_url', $url_view_count->long_url, 0.2);
+        return back();
+    }
 }
