@@ -44,7 +44,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            <button type="submit" class="btn btn-success btn-block">ساخت لینک</button>
                         </form>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            <button type="submit" class="btn btn-success btn-block">نمایش</button>
                         </form>
                     </div>
                 </div>
