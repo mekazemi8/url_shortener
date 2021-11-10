@@ -15,5 +15,7 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'شلوغی وبسایت لطفا :seconds ثانیه دیگر تلاش کنید',
-
+    'Login' => 'ورود',
+    'Register' => 'عضویت',
+    'Logout' => 'خروج'
 ];

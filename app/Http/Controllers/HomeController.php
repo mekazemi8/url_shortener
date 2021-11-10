@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $urls = auth()->user()->url()->get();
+        $urls = auth()->user()->url()->latest()->get();
         return view('dashboard', compact('urls'));
     }
 }

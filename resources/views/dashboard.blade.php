@@ -5,8 +5,16 @@
     <div class="row justify-content-center" style="direction: rtl">
 
         @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible col-md-8">
+            <div class="alert alert-success col-md-8">
                 {{ session()->get('success') }}
+            </div>
+        @endif
+
+        @if (Cookie::get('short_url') !== null)
+            <div class="col-md-12">
+                <div class="text-center mt-2 text-dark">لینک کوتاه ساخته شده برای شما کاربر گرامی</div>
+                <div class="text-center text-danger shorted_url">{{\Illuminate\Support\Facades\URL::to('/')}}/{{Cookie::get('short_url')}}</div>
+                <button onclick="copyToClipboard('.shorted_url')" class="btn mx-auto d-block btn-info copy-text text-center col-md-2 mb-2">کپی کردن لینک</button>
             </div>
         @endif
 

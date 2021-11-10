@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Url;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
@@ -38,10 +40,19 @@ class UrlController extends Controller
             ]);
         }
 
-        auth()->user()->url()->create([
-            'short_url' => $request->short_url,
-            'long_url' => $request->long_url
-        ]);
+        if(Auth::check()) {
+            $url = auth()->user()->url()->create([
+                'short_url' => $request->short_url,
+                'long_url' => $request->long_url
+            ]);
+        } else {
+            $url = Url::create([
+                'short_url' => $request->short_url,
+                'long_url' => $request->long_url
+            ]);
+        }
+
+        Cookie::queue('short_url', $url->short_url, 0.2);
 
         return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
     }

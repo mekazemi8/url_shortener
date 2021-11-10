@@ -18,7 +18,7 @@ class CreateUrlsTable extends Migration
             $table->string('short_url')->nullable();
             $table->text('long_url')->nullable();
             $table->integer('views')->nullable()->default(0);
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }
