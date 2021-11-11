@@ -91,7 +91,7 @@
 
                                     <!-- Modal body -->
                                     <div class="modal-body bg-light">
-                                        <a href="{{URL::to('/')}}/{{$url->short_url}}">pzly.ir/{{$url->short_url}}</a>
+                                        <a href="{{URL::to('/')}}/{{$url->short_url}}">{{URL::to('/')}}/{{$url->short_url}}</a>
                                         <br><br>
                                         <h6 class="text-center text-primary">لینک اصلی</h6>
                                         <a style="overflow-wrap: break-word;" href="{{$url->long_url}}">{{$url->long_url}}</a>
