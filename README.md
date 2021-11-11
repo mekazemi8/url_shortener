@@ -1,65 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://s20.picofile.com/file/8443607792/url_shortener.jpg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+# درباره پروژه **کوتاه کننده لینک**
+
+<p align="right" dir="rtl">
+
+کوتاه کننده لینک یک پروژه است که بزای تیم [**PUZZLEY**](https://puzzley.ir) طراحی شده است.
+<br>
+شما متیوانید از این پروژه استفاده کنید تا لینک های کوتاه اختصاصی خود را بسازید و به آسانی به خاطر بسپارید
 </p>
 
-## About Laravel
+## این پروژه با چه زبانی طراحی شده است
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ این پروژه با زبان **PHP** و فریم ورک [**Laravel**](https://puzzley.ir) طراحی و پیاده سازی شده است.
+<br>
+شما میتوانید با نصب این پروژه روی هاست یا سرور خود به سادگی لینک های کوتاه خود را ایجاد کنید
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### چگونه کار میکند
 
-## Learning Laravel
+این پروژه لینک بلند و طولانی شمارا دریافت میکند و لینک کوتاه مخصوص شما را ایجاد میکند
+<br>
+اگر شما بعد از راه اندازی این پروژه در وبسایت ثبت نام کنید و وارد سایت بشوید میتوانید لینک های کوتاه اختصاصی خود را با آدرس دلخواه تولید کنید
+<br>
+در این پروژه امکان مشاهده تعداد بازدید هر لینک کوتاه هم قرار گرفته است
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<hr>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## طریقه ی دانلود و نصب
 
-## Laravel Sponsors
+در ابتدا شما باید پروژه را دانلود کنید که برای این کار میتوانید از دستورات گیت استفاده کنید یا هم به صورت دستی دانلود کنید
+<br>
+```
+git clone https://github.com/mekazemi8/url_shortener.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+بعد از دانلود پروژه کافیست دستور زیر را وارد کنید تا پکیج های لازم دانلود شود
+```
+composer install
+```
 
-### Premium Partners
+با انجام دادن کانفیگ دیتابیس و اجرای دستور زیر پروژه آماده راه اندازی خواهد شد
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+php artisan migrate --seed
 
-## Contributing
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+حال پروژه آماده است و شما میتوانید از امکانات این پروژه استفاده کنید
 
-## Code of Conduct
+<hr>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## پیاده سازی شده توسط
 
-## Security Vulnerabilities
+**محمدابراهیم کاظمی**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- [Email](mailto:mekazemi8@gmail.com)
+- [Instagram](https://instagram.com/m.e_kazemi)
+- [Telegram](https://telegram.me/mek11)
