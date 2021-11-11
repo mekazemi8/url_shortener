@@ -27,7 +27,7 @@ class UrlController extends Controller
             do {
                 $request['short_url'] = $this->generateRandomString($length);
                 $validator = Validator::make($request->all(), [
-                    'short_url' => 'required|min:3|unique:urls',
+                    'short_url' => 'required|unique:urls',
                 ]);
             } while ($validator->fails());
             $request->validate([
@@ -35,7 +35,7 @@ class UrlController extends Controller
             ]);
         } else {
             $request->validate([
-                'short_url' => 'required|min:3|unique:urls',
+                'short_url' => 'required|unique:urls',
                 'long_url' => 'required|url|active_url|'
             ]);
         }
