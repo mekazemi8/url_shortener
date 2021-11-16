@@ -74,6 +74,31 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <button type="button" class="btn btn-primary mx-auto d-block mb-2" data-toggle="collapse" data-target="#UTM">اضافه کردن UTM</button>
+
+                            <div id="UTM" class="collapse">
+                                <div class="form-group">
+                                    <label for="utm_source" class="float-right">منبع کمپین</label>
+                                    <input type="text" class="form-control" placeholder="pzly" name="utm_source" id="utm_source" style="direction: ltr;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="utm_medium" class="float-right">نوع کمپین</label>
+                                    <input type="text" class="form-control" placeholder="banner" name="utm_medium" id="utm_medium" style="direction: ltr;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="utm_campaign" class="float-right">نام کمپین</label>
+                                    <input type="text" class="form-control" placeholder="sample" name="utm_campaign" id="utm_campaign" style="direction: ltr;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="utm_term" class="float-right">عبارت کلیدی</label>
+                                    <input type="text" class="form-control" name="utm_term" id="utm_term" style="direction: ltr;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="utm_content" class="float-right">محتوای کمپین</label>
+                                    <input type="text" class="form-control" name="utm_content" id="utm_content" style="direction: ltr;">
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-success btn-block">ساخت لینک</button>
                         </form>
                     </div>
