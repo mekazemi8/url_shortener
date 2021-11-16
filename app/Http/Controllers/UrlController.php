@@ -55,21 +55,25 @@ class UrlController extends Controller
                 if ($counter != 0)
                     $long_url .= '&';
                 $long_url .= 'utm_medium=' . $request->utm_medium;
+                $counter++;
             }
             if (!empty($request->utm_campaign)) {
                 if ($counter != 0)
                     $long_url .= '&';
                 $long_url .= 'utm_campaign=' . $request->utm_campaign;
+                $counter++;
             }
             if (!empty($request->utm_term)) {
                 if ($counter != 0)
                     $long_url .= '&';
                 $long_url .= 'utm_term=' . $request->utm_term;
+                $counter++;
             }
             if (!empty($request->utm_content)) {
                 if ($counter != 0)
                     $long_url .= '&';
                 $long_url .= 'utm_content=' . $request->utm_content;
+                $counter++;
             }
         }
 
