@@ -12,7 +12,7 @@ class UrlController extends Controller
 {
     function generateRandomString($length = 10)
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
@@ -97,10 +97,14 @@ class UrlController extends Controller
     public function goto($short_url)
     {
         $url = Url::where('short_url', $short_url)->first();
-        $url->update([
-            'views' => $url->views + 1,
-        ]);
-        return redirect($url->long_url);
+        if (!empty($url)) {
+            $url->update([
+                'views' => $url->views + 1,
+            ]);
+            return redirect($url->long_url);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function show_views_count(Request $request)
