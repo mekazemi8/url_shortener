@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
-    function generateRandomString($length = 10) {
+    function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -23,7 +24,7 @@ class UrlController extends Controller
     public function store(Request $request)
     {
         $length = 3;
-        if (empty($request->short_url)){
+        if (empty($request->short_url)) {
             do {
                 $request['short_url'] = $this->generateRandomString($length);
                 $validator = Validator::make($request->all(), [
@@ -31,7 +32,7 @@ class UrlController extends Controller
                 ]);
             } while ($validator->fails());
             $request->validate([
-                 'long_url' => 'required|url|active_url'
+                'long_url' => 'required|url|active_url'
             ]);
         } else {
             $request->validate([
@@ -40,15 +41,47 @@ class UrlController extends Controller
             ]);
         }
 
-        if(Auth::check()) {
+        $long_url = $request->long_url;
+
+        // UTM Maker
+        if (!empty($request->utm_source) or !empty($request->utm_medium) or !empty($request->utm_campaign) or !empty($request->utm_term) or !empty($request->utm_content)) {
+            $long_url .= '?';
+            $counter = 0;
+            if (!empty($request->utm_source)) {
+                $long_url .= 'utm_source=' . $request->utm_source;
+                $counter++;
+            }
+            if (!empty($request->utm_medium)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_medium=' . $request->utm_medium;
+            }
+            if (!empty($request->utm_campaign)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_campaign=' . $request->utm_campaign;
+            }
+            if (!empty($request->utm_term)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_term=' . $request->utm_term;
+            }
+            if (!empty($request->utm_content)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_content=' . $request->utm_content;
+            }
+        }
+
+        if (Auth::check()) {
             $url = auth()->user()->url()->create([
                 'short_url' => $request->short_url,
-                'long_url' => $request->long_url
+                'long_url' => $long_url
             ]);
         } else {
             $url = Url::create([
                 'short_url' => $request->short_url,
-                'long_url' => $request->long_url
+                'long_url' => $long_url
             ]);
         }
 
@@ -82,7 +115,7 @@ class UrlController extends Controller
     public function destroy($id)
     {
         $url = Url::find($id);
-        if ($url->user_id == Auth::id()){
+        if ($url->user_id == Auth::id()) {
             $url->delete();
         }
         return back()->with('success', 'لینک کوتاه با موفقیت حذف شد');
