@@ -91,7 +91,8 @@ class UrlController extends Controller
 
         Cookie::queue('short_url', $url->short_url, 0.2);
 
-        return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
+//        return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
+        return response()->json(['short_url' => $request->short_url],200);
     }
 
     public function goto($short_url)
@@ -128,4 +129,86 @@ class UrlController extends Controller
         }
         return back()->with('success', 'لینک کوتاه با موفقیت حذف شد');
     }
+
+    public function store_api(Request $request)
+    {
+        $length = 3;
+        if (empty($request->short_url)) {
+            do {
+                $request['short_url'] = $this->generateRandomString($length);
+                $validator = Validator::make($request->all(), [
+                    'short_url' => 'required|unique:urls',
+                ]);
+            } while ($validator->fails());
+            $validator = Validator::make($request->all(), [
+                'long_url' => 'required|url'
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $request
+                ], 201);
+            }
+        } else {
+            $validator = Validator::make($request->all(), [
+                'short_url' => 'required|unique:urls',
+                'long_url' => 'required|url|active_url|'
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Your short url is not unique or your long url is not valid'
+                ], 201);
+            }
+        }
+
+        $long_url = $request->long_url;
+
+        // UTM Maker
+        if (!empty($request->utm_source) or !empty($request->utm_medium) or !empty($request->utm_campaign) or !empty($request->utm_term) or !empty($request->utm_content)) {
+            $long_url .= '?';
+            $counter = 0;
+            if (!empty($request->utm_source)) {
+                $long_url .= 'utm_source=' . $request->utm_source;
+                $counter++;
+            }
+            if (!empty($request->utm_medium)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_medium=' . $request->utm_medium;
+                $counter++;
+            }
+            if (!empty($request->utm_campaign)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_campaign=' . $request->utm_campaign;
+                $counter++;
+            }
+            if (!empty($request->utm_term)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_term=' . $request->utm_term;
+                $counter++;
+            }
+            if (!empty($request->utm_content)) {
+                if ($counter != 0)
+                    $long_url .= '&';
+                $long_url .= 'utm_content=' . $request->utm_content;
+                $counter++;
+            }
+        }
+
+        if (Auth::check()) {
+            $url = auth()->user()->url()->create([
+                'short_url' => $request->short_url,
+                'long_url' => $long_url
+            ]);
+        } else {
+            $url = Url::create([
+                'short_url' => $request->short_url,
+                'long_url' => $long_url
+            ]);
+        }
+
+        return response()->json(['short_url' => \Illuminate\Support\Facades\URL::to($request->short_url)],200);
+    }
+
 }
