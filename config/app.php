@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'token' => 'NRpsUgTqI9IBbcFJ7K4sRK7ju59AHiyRDxsbRKm8rul97k4klXntYQ2g687B',
 
     /*
     |--------------------------------------------------------------------------

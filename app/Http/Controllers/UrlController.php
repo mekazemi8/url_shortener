@@ -132,6 +132,13 @@ class UrlController extends Controller
 
     public function store_api(Request $request)
     {
+        // Check TOKEN
+        if ($request->token != config('app.token')){
+            return response()->json([
+                'message' => 'Your token is not valid'
+            ], 401);
+        }
+
         $length = 3;
         if (empty($request->short_url)) {
             do {
@@ -145,8 +152,8 @@ class UrlController extends Controller
             ]);
             if ($validator->fails()) {
                 return response()->json([
-                    'message' => $request
-                ], 201);
+                    'message' => 'Long Url is not a valid url'
+                ], 400);
             }
         } else {
             $validator = Validator::make($request->all(), [
@@ -156,7 +163,7 @@ class UrlController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'message' => 'Your short url is not unique or your long url is not valid'
-                ], 201);
+                ], 400);
             }
         }
 
