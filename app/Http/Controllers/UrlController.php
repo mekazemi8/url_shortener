@@ -135,7 +135,8 @@ class UrlController extends Controller
         // Check TOKEN
         if ($request->token != config('app.token')){
             return response()->json([
-                'message' => 'Your token is not valid'
+                'error' => 'Your token is not valid',
+                'success' => 'No',
             ], 401);
         }
 
@@ -152,7 +153,8 @@ class UrlController extends Controller
             ]);
             if ($validator->fails()) {
                 return response()->json([
-                    'message' => 'Long Url is not a valid url'
+                    'error' => 'Long Url is not a valid url',
+                    'success' => 'No',
                 ], 400);
             }
         } else {
@@ -162,46 +164,13 @@ class UrlController extends Controller
             ]);
             if ($validator->fails()) {
                 return response()->json([
-                    'message' => 'Your short url is not unique or your long url is not valid'
+                    'error' => 'Long Url is not a valid url',
+                    'success' => 'No',
                 ], 400);
             }
         }
 
         $long_url = $request->long_url;
-
-        // UTM Maker
-        if (!empty($request->utm_source) or !empty($request->utm_medium) or !empty($request->utm_campaign) or !empty($request->utm_term) or !empty($request->utm_content)) {
-            $long_url .= '?';
-            $counter = 0;
-            if (!empty($request->utm_source)) {
-                $long_url .= 'utm_source=' . $request->utm_source;
-                $counter++;
-            }
-            if (!empty($request->utm_medium)) {
-                if ($counter != 0)
-                    $long_url .= '&';
-                $long_url .= 'utm_medium=' . $request->utm_medium;
-                $counter++;
-            }
-            if (!empty($request->utm_campaign)) {
-                if ($counter != 0)
-                    $long_url .= '&';
-                $long_url .= 'utm_campaign=' . $request->utm_campaign;
-                $counter++;
-            }
-            if (!empty($request->utm_term)) {
-                if ($counter != 0)
-                    $long_url .= '&';
-                $long_url .= 'utm_term=' . $request->utm_term;
-                $counter++;
-            }
-            if (!empty($request->utm_content)) {
-                if ($counter != 0)
-                    $long_url .= '&';
-                $long_url .= 'utm_content=' . $request->utm_content;
-                $counter++;
-            }
-        }
 
         if (Auth::check()) {
             $url = auth()->user()->url()->create([
@@ -215,7 +184,11 @@ class UrlController extends Controller
             ]);
         }
 
-        return response()->json(['short_url' => \Illuminate\Support\Facades\URL::to($request->short_url)],200);
+        return response()->json([
+            'short_url' => \Illuminate\Support\Facades\URL::to($request->short_url),
+            'error' => '',
+            'success' => 'Yes',
+            ], 200);
     }
 
 }
