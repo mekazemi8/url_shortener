@@ -136,7 +136,7 @@ class UrlController extends Controller
         if ($request->token != config('app.token')){
             return response()->json([
                 'error' => 'Your token is not valid',
-                'success' => 'No',
+                'success' => false,
             ], 401);
         }
 
@@ -154,7 +154,7 @@ class UrlController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'error' => 'Long Url is not a valid url',
-                    'success' => 'No',
+                    'success' => false,
                 ], 400);
             }
         } else {
@@ -165,7 +165,7 @@ class UrlController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'error' => 'Long Url is not a valid url',
-                    'success' => 'No',
+                    'success' => false,
                 ], 400);
             }
         }
@@ -187,7 +187,7 @@ class UrlController extends Controller
         return response()->json([
             'short_url' => \Illuminate\Support\Facades\URL::to($request->short_url),
             'error' => '',
-            'success' => 'Yes',
+            'success' => true,
             ], 200);
     }
 
