@@ -91,7 +91,8 @@ class UrlController extends Controller
 
         Cookie::queue('short_url', $url->short_url, 0.2);
 
-        return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
+//        return back()->with('success', 'لینک کوتاه شما با موفقیت ساخته شد');
+        return response()->json(['short_url' => $request->short_url],200);
     }
 
     public function goto($short_url)
@@ -128,4 +129,66 @@ class UrlController extends Controller
         }
         return back()->with('success', 'لینک کوتاه با موفقیت حذف شد');
     }
+
+    public function store_api(Request $request)
+    {
+        // Check TOKEN
+        if ($request->token != config('app.token')){
+            return response()->json([
+                'error' => 'Your token is not valid',
+                'success' => false,
+            ], 401);
+        }
+
+        $length = 3;
+        if (empty($request->short_url)) {
+            do {
+                $request['short_url'] = $this->generateRandomString($length);
+                $validator = Validator::make($request->all(), [
+                    'short_url' => 'required|unique:urls',
+                ]);
+            } while ($validator->fails());
+            $validator = Validator::make($request->all(), [
+                'long_url' => 'required|url'
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Long Url is not a valid url',
+                    'success' => false,
+                ], 400);
+            }
+        } else {
+            $validator = Validator::make($request->all(), [
+                'short_url' => 'required|unique:urls',
+                'long_url' => 'required|url|active_url|'
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Long Url is not a valid url',
+                    'success' => false,
+                ], 400);
+            }
+        }
+
+        $long_url = $request->long_url;
+
+        if (Auth::check()) {
+            $url = auth()->user()->url()->create([
+                'short_url' => $request->short_url,
+                'long_url' => $long_url
+            ]);
+        } else {
+            $url = Url::create([
+                'short_url' => $request->short_url,
+                'long_url' => $long_url
+            ]);
+        }
+
+        return response()->json([
+            'short_url' => \Illuminate\Support\Facades\URL::to($request->short_url),
+            'error' => '',
+            'success' => true,
+            ], 200);
+    }
+
 }
