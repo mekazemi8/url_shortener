@@ -32,12 +32,12 @@ class UrlController extends Controller
                 ]);
             } while ($validator->fails());
             $request->validate([
-                'long_url' => 'required|url|active_url'
+                'long_url' => 'required|url'
             ]);
         } else {
             $request->validate([
                 'short_url' => 'required|unique:urls',
-                'long_url' => 'required|url|active_url|'
+                'long_url' => 'required|url'
             ]);
         }
 
@@ -160,7 +160,7 @@ class UrlController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'short_url' => 'required|unique:urls',
-                'long_url' => 'required|url|active_url|'
+                'long_url' => 'required|url'
             ]);
             if ($validator->fails()) {
                 return response()->json([
