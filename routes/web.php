@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('temp');
 })->name('welcome');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/make_url', [UrlController::class, 'store'])->name('make-url');
