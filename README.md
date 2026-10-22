@@ -34,6 +34,8 @@
 git clone https://github.com/mekazemi8/url_shortener.git
 ```
 
+**نیازمندی‌ها:** PHP 8.2 یا بالاتر (توصیه: 8.3+)، Composer، MySQL (یا MariaDB)
+
 بعد از دانلود پروژه کافیست دستور زیر را وارد کنید تا پکیج های لازم دانلود شود
 ```
 composer install
